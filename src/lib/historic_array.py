@@ -29,6 +29,9 @@ class HistoricArray:
     def load_list(self, L):
         self.items = L
     
+    def length(self):
+        return len(self.items)
+    
     def randomized(n = 0):
         r = []
         for i in range(1, n + 1):
@@ -37,21 +40,21 @@ class HistoricArray:
         return HistoricArray(r)
 
 
-def bubble_sort(L):
-    while True:
-        finished = True
-        for i in range(len(L.items) - 1):
-            a = L[i]
-            b = L[i+1]
-            if a > b:
-                L[i+1] = a
-                L[i] = b
-                finished = False
-        if finished:
-            break
-    return L
+# def bubble_sort(L):
+#     while True:
+#         finished = True
+#         for i in range(len(L.items) - 1):
+#             a = L[i]
+#             b = L[i+1]
+#             if a > b:
+#                 L[i+1] = a
+#                 L[i] = b
+#                 finished = False
+#         if finished:
+#             break
+#     return L
 
-my_list = HistoricArray.randomized(10)
-print(my_list.items)
-my_list = bubble_sort(my_list)
-my_list.print_history()
+# my_list = HistoricArray.randomized(10)
+# my_list.print_history()
+# my_list = bubble_sort(my_list)
+# my_list.print_history()
