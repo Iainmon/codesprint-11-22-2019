@@ -28,7 +28,7 @@ def bubble_sort(L):
 def bogo_sort(L):
     while True:
         random.shuffle(L.items)
-        if is_list_sorted(L.items):
+        if is_list_sorted(L):
             return
 
 

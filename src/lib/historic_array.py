@@ -43,7 +43,7 @@ class HistoricArray:
         if entry:
             self.list_states.append(entry)
         else:
-            self.list_states.append(HistoricArrayEntry(self.items, total_accesses=self.accesses, total_changes=self.changes))
+            self.list_states.append(HistoricArrayEntry(self.items, keys_accessed=self.accessed_cache, total_accesses=self.accesses, total_changes=self.changes))
 
     def print_history(self):
         for i in range(len(self.list_states)):
