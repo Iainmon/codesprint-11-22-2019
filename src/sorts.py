@@ -23,15 +23,29 @@ def bubble_sort(L):
                 finished = False
         if finished:
             break
-    return L
 
 
 def bogo_sort(L):
     while True:
         random.shuffle(L.items)
         if is_list_sorted(L.items):
-            return L
+            return
+
+
+
+def insertion_sort(L):
+    i = 1
+    while i < len(L.items):
+        j = i
+        while j > 0 and L[j-1] > L[j]:
+            a = L[j]
+            b = L[j-1]
+            L[j] = b
+            L[j-1] = a
+            j = j - 1
+        i = i + 1
     
+
 
 
 

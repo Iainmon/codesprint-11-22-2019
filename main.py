@@ -6,24 +6,20 @@ import numpy as np
 
 
 
-L = HistoricArray.randomized(10)
-bubble_sort(L)
+L = HistoricArray.randomized(100)
+insertion_sort(L)
 
 
 fig = plt.figure()
-ax = plt.axes(xlim=(0, 4), ylim=(-2, 2))
-line, = ax.plot([], [], lw=3)
-
-def init():
-    line.set_data([], [])
-    return line,
+ax = plt.axes(xlim=(-1, len(L.items)), ylim=(0, 1.2*len(L.items)))
+bar = plt.bar(np.arange(len(L.items)), np.zeros((len(L.items))), width=1)
 
 def animate(i):
-    x = np.linspace(0, len(L.list_states[i]), 1)
-    y = np.array(L.list_states[i])
-    line.set_data(x, y)
-    return line,
+    y_heights = np.array(L.list_states[i])
+    for rect, y in zip(bar, y_heights):
+        rect.set_height(y)
+    return bar
 
-anim = animation.FuncAnimation(fig, animate, init_func=init,
-                               frames=len(L.list_states), interval=20, blit=True)
+anim = animation.FuncAnimation(fig, animate,
+                               frames=len(L.list_states), interval=20, blit=True, repeat=False)
 plt.show()
