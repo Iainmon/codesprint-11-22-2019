@@ -1,7 +1,7 @@
 import random
 from src.lib.helpers import *
 import matplotlib.pyplot as plt
-
+import time
 
 def rand_list(length):
     r = []
@@ -44,7 +44,28 @@ def insertion_sort(L):
             L[j-1] = a
             j = j - 1
         i = i + 1
-    
+
+
+
+
+def quantum_sort(L):
+    if is_list_sorted(L):
+        return
+    else:
+        while True:
+            #todo: destroy current universe
+            continue
+
+
+
+
+def entropy_sort(L):
+    while True:
+        if is_list_sorted(L):
+            return
+        time.sleep(5)
+
+
 
 
 

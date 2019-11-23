@@ -2,10 +2,10 @@ import random
 
 class HistoricArrayEntry:
 
-    def __init__(self, new_list, key_changed = None, original_value_of_key = None, keys_accessed = None, total_accesses = 0, total_changes = 0):
+    def __init__(self, new_list, key_changed = None, key_accessed = None, original_value_of_key = None, total_accesses = 0, total_changes = 0):
         self.list_snapshot = list(new_list)
         self.key_changed = key_changed
-        self.keys_accessed = set(keys_accessed)
+        self.key_accessed = key_accessed
         self.total_accesses = total_accesses
         self.total_changes = total_changes
         if key_changed:
@@ -19,12 +19,13 @@ class HistoricArray:
         self.changes = 0
         self.items = L
         self.list_states = []
-        self.accessed_cache = []
         self._save_current_list()
 
     def __getitem__(self, key):
         self.accesses += 1
-        self.accessed_cache.append(key)
+        entry = HistoricArrayEntry(self.items, key_accessed=key, total_accesses=self.accesses, total_changes=self.changes)
+        self._save_current_list(entry)
+
         return self.items[key]
     
     def __setitem__(self, key, value):
@@ -33,17 +34,16 @@ class HistoricArray:
         self.changes += 1
         self.items[key] = value
 
-        entry = HistoricArrayEntry(self.items, key, original_value_of_key, keys_accessed=self.accessed_cache, total_accesses=self.accesses, total_changes=self.changes)
+        entry = HistoricArrayEntry(self.items, key, original_value_of_key, total_accesses=self.accesses, total_changes=self.changes)
         self._save_current_list(entry)
 
-        self.accessed_cache = []
 
     # Saves a copy of the current list
     def _save_current_list(self, entry = None):
         if entry:
             self.list_states.append(entry)
         else:
-            self.list_states.append(HistoricArrayEntry(self.items, keys_accessed=self.accessed_cache, total_accesses=self.accesses, total_changes=self.changes))
+            self.list_states.append(HistoricArrayEntry(self.items, total_accesses=self.accesses, total_changes=self.changes))
 
     def print_history(self):
         for i in range(len(self.list_states)):
