@@ -1,5 +1,5 @@
 import random
-
+import lib
 
 
 def rand_list(length):
@@ -27,6 +27,10 @@ def bubble_sort(L):
 
 
 def bogo_sort(L):
+    while True:
+        L = random.shuffle(L)
+        if lib.is_sorted(L):
+            return L
     
 
 
@@ -38,4 +42,5 @@ def bogo_sort(L):
 
 
 print(bubble_sort(rand_list(10)))
+print(bogo_sort(rand_list(10)))
 
