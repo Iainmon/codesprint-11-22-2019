@@ -2,14 +2,15 @@ import random
 
 class HistoricArrayEntry:
 
-    def __init__(self, new_list, key_accessed = None, original_value_of_key = None, total_accesses = 0, total_changes = 0):
+    def __init__(self, new_list, key_changed = None, original_value_of_key = None, keys_accessed = None, total_accesses = 0, total_changes = 0):
         self.list_snapshot = list(new_list)
-        self.key_accessed = key_accessed
+        self.key_changed = key_changed
+        self.keys_accessed = set(keys_accessed)
         self.total_accesses = total_accesses
         self.total_changes = total_changes
-        if key_accessed:
+        if key_changed:
             self.original_value_of_key = original_value_of_key
-            self.new_value_of_key = self.list_snapshot[key_accessed]
+            self.new_value_of_key = self.list_snapshot[key_changed]
 
 class HistoricArray:
     
@@ -18,10 +19,12 @@ class HistoricArray:
         self.changes = 0
         self.items = L
         self.list_states = []
+        self.accessed_cache = []
         self._save_current_list()
 
     def __getitem__(self, key):
         self.accesses += 1
+        self.accessed_cache.append(key)
         return self.items[key]
     
     def __setitem__(self, key, value):
@@ -30,8 +33,10 @@ class HistoricArray:
         self.changes += 1
         self.items[key] = value
 
-        entry = HistoricArrayEntry(self.items, key, original_value_of_key, total_accesses=self.accesses, total_changes=self.changes)
+        entry = HistoricArrayEntry(self.items, key, original_value_of_key, keys_accessed=self.accessed_cache, total_accesses=self.accesses, total_changes=self.changes)
         self._save_current_list(entry)
+
+        self.accessed_cache = []
 
     # Saves a copy of the current list
     def _save_current_list(self, entry = None):
@@ -43,8 +48,8 @@ class HistoricArray:
     def print_history(self):
         for i in range(len(self.list_states)):
             entry = self.list_states[i]
-            if entry.key_accessed:
-                print('Pass', i, entry.list_snapshot, f'[{ entry.key_accessed }] { entry.original_value_of_key } -> { entry.new_value_of_key }')
+            if entry.key_changed:
+                print('Pass', i, entry.list_snapshot, f'[{ entry.key_changed }] { entry.original_value_of_key } -> { entry.new_value_of_key }')
             else:
                 print('Pass', i, entry.list_snapshot)
 
