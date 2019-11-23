@@ -5,6 +5,3 @@ def is_list_sorted(L):
         if v1 > v2:
             return False
     return True
-
-
-
