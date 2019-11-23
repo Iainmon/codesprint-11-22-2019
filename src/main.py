@@ -1,11 +1,14 @@
 import random
-import lib
+import helpers
+import matplotlib.pyplot as plt
+
 
 
 def rand_list(length):
     r = []
-    for i in range(length):
-        r.append(random.randint(1, 100))
+    for i in range(1, length + 1):
+        r.append(i)
+    random.shuffle(r)
     return r
 
 
@@ -28,8 +31,8 @@ def bubble_sort(L):
 
 def bogo_sort(L):
     while True:
-        L = random.shuffle(L)
-        if lib.is_sorted(L):
+        random.shuffle(L)
+        if helpers.is_list_sorted(L):
             return L
     
 
@@ -41,6 +44,5 @@ def bogo_sort(L):
 
 
 
-print(bubble_sort(rand_list(10)))
-print(bogo_sort(rand_list(10)))
+print(rand_list(5))
 
