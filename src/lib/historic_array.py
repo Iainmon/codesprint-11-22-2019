@@ -34,7 +34,7 @@ class HistoricArray:
         self.changes += 1
         self.items[key] = value
 
-        entry = HistoricArrayEntry(self.items, key, original_value_of_key, total_accesses=self.accesses, total_changes=self.changes)
+        entry = HistoricArrayEntry(self.items, key, original_value_of_key=original_value_of_key, total_accesses=self.accesses, total_changes=self.changes)
         self._save_current_list(entry)
 
 

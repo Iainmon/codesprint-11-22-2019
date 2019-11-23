@@ -6,8 +6,8 @@ import numpy as np
 
 
 
-L = HistoricArray.randomized(4)
-bubble_sort(L)
+L = HistoricArray.randomized(30)
+fast_sort(L)
 
 
 fig = plt.figure()
@@ -31,5 +31,5 @@ def animate(i):
     return bar
 
 anim = animation.FuncAnimation(fig, animate,
-                               frames=len(L.list_states), interval=100, blit=True, repeat=False)
+                               frames=len(L.list_states), interval=300, blit=True, repeat=False)
 plt.show()
