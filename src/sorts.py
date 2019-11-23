@@ -14,7 +14,7 @@ def rand_list(length):
 def bubble_sort(L):
     while True:
         finished = True
-        for i in range(len(L) - 1):
+        for i in range(len(L.items) - 1):
             a = L[i]
             b = L[i+1]
             if a > b:
@@ -28,8 +28,8 @@ def bubble_sort(L):
 
 def bogo_sort(L):
     while True:
-        random.shuffle(L)
-        if is_list_sorted(L):
+        random.shuffle(L.items)
+        if is_list_sorted(L.items):
             return L
     
 
